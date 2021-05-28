@@ -106,7 +106,7 @@ label {
 
 /* ---------- styly pro vyhledávací formulář  ---------- */
 
-.journey-picker {
+/* .journey-picker {
   margin: -2rem auto 0 auto;
   padding: 2rem;
 
@@ -142,7 +142,7 @@ label {
 .journey-picker__map {
   width: 26rem;
   height: auto;
-}
+} */
 
 /* ---------- styly pro podrobnosti cesty  ---------- */
 
