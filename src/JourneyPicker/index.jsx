@@ -2,10 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import mapImage from './img/map.svg';
 
+const DatesOptions = ({ dates }) => {
+  return (
+    <>
+      <option value="">Vyberte</option>
+      {dates.map((item) => (
+        <option key={item.dateBasic} value={item.dateBasic}>
+          {item.dateExtended}
+        </option>
+      ))}
+    </>
+  );
+};
+
 const CityOptions = ({ cities }) => {
   return (
     <>
-      <option>Vyberte</option>
+      <option value="">Vyberte</option>
       {cities.map((city) => (
         <option key={city.code} value={city.code}>
           {city.name}
@@ -20,11 +33,18 @@ const JourneyPicker = () => {
   const [toCity, setToCity] = useState('');
   const [date, setDate] = useState('');
   const [cities, setCities] = useState([]);
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     fetch(`https://leviexpress-backend.herokuapp.com/api/cities`)
       .then((response) => response.json())
       .then((json) => setCities(json.data));
+  }, []);
+
+  useEffect(() => {
+    fetch(`https://leviexpress-backend.herokuapp.com/api/dates`)
+      .then((response) => response.json())
+      .then((json) => setDates(json.data));
   }, []);
 
   const handleSubmit = (event) => {
@@ -65,11 +85,8 @@ const JourneyPicker = () => {
             <label>
               <div className="journey-picker__label">Datum:</div>
               <select value={date} onChange={handleDateChange}>
-                <option>Vyberte</option>
-                <option>20.05.2021</option>
-                <option>21.05.2021</option>
-                <option>22.05.2021</option>
-                <option>23.05.2021</option>
+                <option value="">Vyberte</option>
+                <DatesOptions dates={dates} />
               </select>
             </label>
             <div className="journey-picker__controls">
