@@ -28,7 +28,7 @@ const CityOptions = ({ cities }) => {
   );
 };
 
-const JourneyPicker = () => {
+const JourneyPicker = ({ onJourneyChange }) => {
   const [fromCity, setFromCity] = useState('');
   const [toCity, setToCity] = useState('');
   const [date, setDate] = useState('');
@@ -49,7 +49,7 @@ const JourneyPicker = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Uživatel jede z ${fromCity} do ${toCity} dne ${date}.`);
+    onJourneyChange(fromCity, toCity, date);
   };
 
   const handleFromCityChange = (event) => {
@@ -85,12 +85,17 @@ const JourneyPicker = () => {
             <label>
               <div className="journey-picker__label">Datum:</div>
               <select value={date} onChange={handleDateChange}>
-                <option value="">Vyberte</option>
                 <DatesOptions dates={dates} />
               </select>
             </label>
             <div className="journey-picker__controls">
-              <button className="btn" type="submit">
+              <button
+                className="btn"
+                type="submit"
+                disabled={
+                  date === '' || fromCity === '' || toCity === '' ? true : false
+                }
+              >
                 Vyhledat spoj
               </button>
             </div>
